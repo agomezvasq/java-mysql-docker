@@ -46,6 +46,8 @@ public class Main {
 		estudianteController.update(estudiante);
 		*/
 		
+		System.out.println("Esta base de datos cuenta con dos tablas: Estudiantes y Carreras");
+		
 		if(args.length==0) {
 			System.out.println("Inserte argumentos");
 			return;
@@ -101,10 +103,12 @@ public class Main {
 				}
 				System.out.println("Registros de estudiantes actualizado.");
 			}else {
-				System.out.println("Argumentos inválidos");
+				System.out.println("Sintaxis: INSERT <tabla> <arg1> <arg2> ... <arg n>");
+				System.out.println("Ejemplo: INSERT carreras Psicología" );
+				System.out.println("Ejemplo: INSERT estudiantes Pepito 11111111 201810009050 2550101 3113213211 \"Cra. 1 #1-1\" 1");
 			}
 		}
-		if(args[0].equalsIgnoreCase("READ")) {
+		else if(args[0].equalsIgnoreCase("READ")) {
 			if(args[1].equalsIgnoreCase("carreras")){
 				printCarreras(carreraDAO.getAll());
 			}else if(args[1].equalsIgnoreCase("estudiantes")) {
@@ -114,10 +118,27 @@ public class Main {
 			}
 			
 		}
-		if(args[0].equalsIgnoreCase("UPDATE")) {
-		
+		else if(args[0].equalsIgnoreCase("UPDATE")) {
+			if(args[1].equalsIgnoreCase("carreras")){
+				Carrera carr = new Carrera(args[3]);
+				carr.setIdCarrera(Integer.parseInt(args[2]));
+				carreraDAO.update(carr);
+				
+			}else if (args[1].equalsIgnoreCase("estudiante")) {
+				Estudiante est = new Estudiante(args[3],
+						args[4],
+						args[5],
+						args[6],
+						args[7],
+						args[8],
+						   carreraController.get(Integer.parseInt(args[9])));
+				est.setIdEstudiante(Integer.parseInt(args[2]));
+				estudianteDAO.update(est);
+			}else {
+				System.out.println("Sintaxis: UPDATE <Tabla> <id_registro_a_actualizar> <campo 1> <campo 2> ...<campo n>");
+			}
 		}
-		if(args[0].equalsIgnoreCase("DELETE")) {
+		else if(args[0].equalsIgnoreCase("DELETE")) {
 			if(args[1].equalsIgnoreCase("carreras")) {
 				carreraDAO.delete(carreraDAO.get(Integer.parseInt(args[2])));
 				System.out.println("Registro "+args[2]+"de la tabla carreras eliminado.");
