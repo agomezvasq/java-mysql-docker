@@ -46,6 +46,56 @@ public class EstudianteDAO implements IEstudianteDAO {
 	}
 
 	@Override
+	public Estudiante get(int idEstudiante) {
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		String sqlQuery = "SELECT * FROM Estudiante WHERE idEstudiante=" + idEstudiante;
+		
+		Estudiante estudiante = null;
+		
+		try {
+			connection = Connector.connect();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+			resultSet.next();
+			
+			estudiante = new Estudiante();
+			estudiante.setIdEstudiante(resultSet.getInt(1));
+			estudiante.setNombre(resultSet.getString(2));
+			estudiante.setDocumento(resultSet.getString(3));
+			estudiante.setCodigo(resultSet.getString(4));
+			estudiante.setTelefono(resultSet.getString(5));
+			estudiante.setCelular(resultSet.getString(6));
+			estudiante.setDireccion(resultSet.getString(7));
+			
+			String sqlQuery2 = "SELECT * FROM Carrera WHERE idCarrera=" + resultSet.getInt(8);   
+			
+			Statement statement2 = connection.createStatement();
+			ResultSet resultSet2 = statement2.executeQuery(sqlQuery2);
+			resultSet2.next();
+			
+			Carrera carrera = new Carrera();
+			carrera.setIdCarrera(resultSet2.getInt(1));
+			carrera.setNombre(resultSet2.getString(2));
+			
+			resultSet2.close();
+			statement2.close();
+			
+			estudiante.setCarrera(carrera);
+			
+			resultSet.close();
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return estudiante;
+	}
+	
+	@Override
 	public List<Estudiante> getAll() {
 		Connection connection = null;
 		Statement statement = null;

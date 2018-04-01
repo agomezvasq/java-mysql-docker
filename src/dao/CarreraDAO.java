@@ -40,6 +40,36 @@ public class CarreraDAO implements ICarreraDAO {
 	}
 
 	@Override
+	public Carrera get(int idCarrera) {
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		String sqlQuery = "SELECT * FROM Carrera WHERE idCarrera=" + idCarrera;
+		
+		Carrera carrera = null;
+		
+		try {
+			connection = Connector.connect();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+			resultSet.next();
+			
+			carrera = new Carrera();
+			carrera.setIdCarrera(resultSet.getInt(1));
+			carrera.setNombre(resultSet.getString(2));
+			
+			resultSet.close();
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return carrera;
+	}
+
+	@Override
 	public List<Carrera> getAll() {
 		Connection connection = null;
 		Statement statement = null;
@@ -112,5 +142,4 @@ public class CarreraDAO implements ICarreraDAO {
 		
 		return delete;
 	}
-
 }

@@ -16,6 +16,11 @@ public class CarreraController {
 		carreraDAO.register(carrera);
 	}
 	
+	public Carrera get(int idCarrera) {
+		ICarreraDAO carreraDAO = new CarreraDAO();
+		return carreraDAO.get(idCarrera);
+	}
+	
 	public void update(Carrera carrera) {
 		ICarreraDAO carreraDAO = new CarreraDAO();
 		carreraDAO.update(carrera);

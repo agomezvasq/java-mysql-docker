@@ -16,6 +16,11 @@ public class EstudianteController {
 		estudianteDAO.register(estudiante);
 	}
 	
+	public Estudiante get(int idEstudiante) {
+		IEstudianteDAO estudianteDAO = new EstudianteDAO();
+		return estudianteDAO.get(idEstudiante);
+	}
+	
 	public void update(Estudiante estudiante) {
 		IEstudianteDAO estudianteDAO = new EstudianteDAO();
 		estudianteDAO.update(estudiante);
