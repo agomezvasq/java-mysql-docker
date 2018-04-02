@@ -120,6 +120,7 @@ public class Main {
 			if(args[1].equalsIgnoreCase("carreras")){
 				Carrera carr = new Carrera(args[3]);
 				carr.setIdCarrera(Integer.parseInt(args[2]));
+				carr.setNombre(args[3]);
 				carreraDAO.update(carr);
 				
 			}else if (args[1].equalsIgnoreCase("estudiantes")) {
