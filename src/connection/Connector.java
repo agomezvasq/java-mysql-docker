@@ -10,18 +10,19 @@ public class Connector {
 		String host = "127.0.0.1";
 		int port = 3306;
 		String username = "root";
-		String password = "root*";
+		String password = "";
 		String url = "jdbc:mysql://" + host + ":" + port
 					+ "/estudiantes"
 					+ "?user=" + username
-					+ "&password=" + password;
+					+ "&password=" + password
+					+"&useSSL=false";
 		
 		Connection connection = null;
 		
 		try {
 			connection = DriverManager.getConnection(url);
 			if (connection != null) {
-				System.out.println("Connected");
+				//System.out.println("Connected");
 			}
 		} catch (SQLException e) {
 			System.out.println("Couldn't connect to the database");

@@ -46,8 +46,6 @@ public class Main {
 		estudianteController.update(estudiante);
 		*/
 		
-		System.out.println("Esta base de datos cuenta con dos tablas: Estudiantes y Carreras");
-		
 		if(args.length==0) {
 			System.out.println("Inserte argumentos");
 			return;
@@ -59,7 +57,7 @@ public class Main {
 		IEstudianteDAO estudianteDAO = new EstudianteDAO();
 		
 		if(args[0].equalsIgnoreCase("INSERT")) {
-			if(args[1].equalsIgnoreCase("carrera")) {
+			if(args[1].equalsIgnoreCase("carreras")) {
 				
 				List<Carrera> carreras = carreraDAO.getAll();
 				for (Carrera c:carreras) {
@@ -76,7 +74,7 @@ public class Main {
 				carrera.setIdCarrera(carreras.size());
 				System.out.println("Registro de carreras actualizado.");
 				
-			}else if(args[1].equalsIgnoreCase("estudiante")) {
+			}else if(args[1].equalsIgnoreCase("estudiantes")) {
 				
 				List<Estudiante> estudiantes = estudianteDAO.getAll();
 				for (Estudiante e:estudiantes) {
@@ -124,7 +122,7 @@ public class Main {
 				carr.setIdCarrera(Integer.parseInt(args[2]));
 				carreraDAO.update(carr);
 				
-			}else if (args[1].equalsIgnoreCase("estudiante")) {
+			}else if (args[1].equalsIgnoreCase("estudiantes")) {
 				Estudiante est = new Estudiante(args[3],
 						args[4],
 						args[5],
@@ -141,10 +139,10 @@ public class Main {
 		else if(args[0].equalsIgnoreCase("DELETE")) {
 			if(args[1].equalsIgnoreCase("carreras")) {
 				carreraDAO.delete(carreraDAO.get(Integer.parseInt(args[2])));
-				System.out.println("Registro "+args[2]+"de la tabla carreras eliminado.");
+				System.out.println("Registro "+args[2]+" de la tabla carreras eliminado.");
 			}else if(args[1].equalsIgnoreCase("estudiantes")) {
 				estudianteDAO.delete(estudianteDAO.get(Integer.parseInt(args[2])));
-				System.out.println("Registro "+args[2]+"de la tabla estudiantes eliminado.");
+				System.out.println("Registro "+args[2]+" de la tabla estudiantes eliminado.");
 			}else {
 				System.out.println("Sintaxis: Delete <Tabla> <id>  Ejemplo: Delete carreras 4, Delete estudiantes 2");
 			}
@@ -155,13 +153,13 @@ public class Main {
 	}
 	public static void printCarreras(List<Carrera> list){
 		for(Object c:list) {
-			c.toString();
+			System.out.println(c.toString());
 			System.out.println("");
 		}
 	}
 	public static void printEstudiantes(List<Estudiante> list){
 		for(Object e:list) {
-			e.toString();
+			System.out.println(e.toString());
 			System.out.println("");
 		}
 	}
